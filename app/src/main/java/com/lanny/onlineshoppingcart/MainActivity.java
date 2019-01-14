@@ -1,38 +1,65 @@
 package com.lanny.onlineshoppingcart;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity {
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
+
+import com.lanny.onlineshoppingcart.account.AccountFragment;
+import com.lanny.onlineshoppingcart.product.HomeFragment;
+
+public class MainActivity extends AppCompatActivity
+        implements BottomNavigationView.OnNavigationItemSelectedListener{
+
+    BottomNavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.bottom_navigation_bar);
 
-        Thread thread = new Thread(){
-            @Override
-            public void run() {
-                super.run();
+        navigationView = findViewById(R.id.BottomNavigationView);
 
-                try {
-                    sleep(7000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } finally {
-                    Intent i = new Intent(MainActivity.this, SignUpActivity.class);
-                    startActivity(i);
-                }
-            }
-        };
-        thread.start();
+        navigationView.setOnNavigationItemSelectedListener(this);
+        loadFragment(new HomeFragment());
+    }
 
+    private boolean loadFragment(Fragment fragment){
+        if(fragment != null){
+
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.bottom_frame_layout, fragment)
+                    .commit();
+
+            return true;
+        }
+        return false;
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        finish();
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        Fragment fragment = null;
+
+        switch (menuItem.getItemId()){
+            case R.id.nav_home:
+                fragment = new HomeFragment();
+                break;
+            case R.id.nav_search:
+                fragment = new SearchFragment();
+                break;
+            case R.id.nav_Account:
+                fragment = new AccountFragment();
+                break;
+            case R.id.nav_cart:
+                fragment = new CartFragment();
+                break;
+        }
+
+
+        return loadFragment(fragment);
     }
 }
