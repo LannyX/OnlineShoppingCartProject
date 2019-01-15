@@ -2,6 +2,7 @@ package com.lanny.onlineshoppingcart.account;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -34,6 +35,8 @@ public class ProfileActivity extends AppCompatActivity {
     private Button updateButton;
     private ProgressDialog pd;
     private StringRequest stringRequest;
+    private SharedPreferences loginPreferences;
+    private SharedPreferences.Editor loginPrefsEditor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,12 @@ public class ProfileActivity extends AppCompatActivity {
         loginEmail = findViewById(R.id.editTextUpdateEmail);
         loginMobile = findViewById(R.id.editTextUpdateMobile);
         updateButton = findViewById(R.id.buttonUpdateProfile);
+        loginPreferences = getSharedPreferences("profile", MODE_PRIVATE);
+
+        fname.setText(loginPreferences.getString("spFName", ""));
+        lname.setText(loginPreferences.getString("spLName", ""));
+        loginEmail.setText(loginPreferences.getString("spEmail", ""));
+        loginMobile.setText(loginPreferences.getString("spMobile", ""));
 
         updateButton.setOnClickListener(new OnClickListener() {
             @Override

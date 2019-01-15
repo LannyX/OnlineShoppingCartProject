@@ -69,7 +69,7 @@ public class ProductListFragment extends Fragment {
     }
 
     private void getProductListDetails() {
-        String url = "http://rjtmobile.com/ansari/shopingcart/androidapp/product_details.php?cid=" + res + "&scid=" + scid+ "&api_key=ce34165bb77cc992084f496189e0055e&user_id=1471";
+        String url = "http://rjtmobile.com/ansari/shopingcart/androidapp/product_details.php?cid=" + res + "&scid=" + scid+ "&api_key=1fb4943265a962af385c70db975055fd&user_id=1472";
 
         StringRequest stringRequest = new StringRequest(Method.GET, url, new Listener<String>() {
             @Override

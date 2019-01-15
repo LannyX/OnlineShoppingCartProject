@@ -3,7 +3,9 @@ package com.lanny.onlineshoppingcart.account;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -29,6 +31,10 @@ import com.android.volley.toolbox.StringRequest;
 import com.lanny.onlineshoppingcart.AppController;
 import com.lanny.onlineshoppingcart.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,6 +50,8 @@ public class SigninFragment extends Fragment {
     private ProgressDialog pd;
     private TextView forgortPassword;
     StringRequest stringRequest;
+    public SharedPreferences loginPreferences;
+    public SharedPreferences.Editor loginPrefsEditor;
     Boolean worked = false;
 
     public SigninFragment() {
@@ -62,15 +70,27 @@ public class SigninFragment extends Fragment {
         loginButton = view.findViewById(R.id.button_log_in);
         forgortPassword = view.findViewById(R.id.textView_Forgot_password);
 
+
+        loginPreferences = getActivity().getSharedPreferences("profile", Context.MODE_PRIVATE);
+        loginPrefsEditor = loginPreferences.edit();
+
         loginButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 loginRequest();
 
 
                 if(worked){
                     moveToNewActivity();
+                    loginPrefsEditor.putString("spMobile", loginMobile.getText().toString());
+                    loginPrefsEditor.putString("spPassword", loginPassword.getText().toString());
+                    loginPrefsEditor.commit();
+
+                    loginPassword.setText(loginPreferences.getString("spPassword", ""));
+                    loginMobile.setText(loginPreferences.getString("spMobile", ""));
                 }
+
 
             }
         });
@@ -104,11 +124,36 @@ public class SigninFragment extends Fragment {
                 new Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.i("xxx", response.toString());
 
                         pd.hide();
                         worked = true;
 
+                        try {
+                            JSONArray jasonArray = new JSONArray(response);
+
+                            for (int i = 0; i < jasonArray.length(); i++) {
+                                JSONObject individual = jasonArray.getJSONObject(i);
+                                String id = individual.getString("id");
+                                String fname = individual.getString("firstname");
+                                String lname = individual.getString("lastname");
+                                String email = individual.getString("email");
+                                String mobile = individual.getString("mobile");
+                                String apiKeys = individual.getString("appapikey ");
+                                Log.i("xxx", id + "\n"+ apiKeys);
+
+                                loginPrefsEditor.putString("spId", id);
+                                loginPrefsEditor.putString("spFName", fname);
+                                loginPrefsEditor.putString("spLName", lname);
+                                loginPrefsEditor.putString("spEmail", email);
+                                loginPrefsEditor.putString("spMobile", mobile);
+                                loginPrefsEditor.putString("spApiKeys", apiKeys);
+                                loginPrefsEditor.commit();
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Log.i(TAG, "no response");
+                        }
                     }
                 }, new ErrorListener() {
             @Override
@@ -128,7 +173,7 @@ public class SigninFragment extends Fragment {
                     message = "Connection TimeOut! Please check your internet connection.";
                 }
 
-                Log.i(TAG, message.toString());
+                Log.i("xxx", message.toString());
             }
         }){
             @Override
@@ -137,6 +182,7 @@ public class SigninFragment extends Fragment {
                 params.put("mobile", loginMobile.getText().toString());
                 params.put("password", loginPassword.getText().toString());
                 return params;
+
             }
 
         };

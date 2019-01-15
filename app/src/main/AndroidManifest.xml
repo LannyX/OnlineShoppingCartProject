@@ -25,6 +25,10 @@
         <activity android:name=".account.ResetPasswordActivity" />
         <activity android:name=".account.ForgotPasswordActivity" />
         <activity android:name=".product.SubCategoryActivity"></activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

@@ -1,17 +1,23 @@
 package com.lanny.onlineshoppingcart.product;
 
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.lanny.onlineshoppingcart.R;
+import com.lanny.onlineshoppingcart.cart.MyDBHelper;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -22,6 +28,10 @@ public class ItemFragment extends Fragment {
     TextView tvIId, tvIPname, tvIQuan, tvIPrice, tvIDesc;
     ImageView tvIImage;
     Spinner dropdown;
+    Button butAddToCart;
+    public MyDBHelper myDBHelper;
+    public SQLiteDatabase myDataBase;
+
 
     public ItemFragment() {
         // Required empty public constructor
@@ -34,6 +44,9 @@ public class ItemFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_item, container, false);
 
+
+        myDBHelper = new MyDBHelper(getContext());
+        myDataBase = myDBHelper.getWritableDatabase();
 
         Bundle b = this.getArguments();
         if (b != null){
@@ -52,8 +65,25 @@ public class ItemFragment extends Fragment {
         tvIDesc = view.findViewById(R.id.textViewIDesc);
         tvIImage = view.findViewById(R.id.textViewIImage);
         dropdown = view.findViewById(R.id.spinner1);
+        butAddToCart = view.findViewById(R.id.buttonAddtoCart);
 
         setItemFragmentView();
+
+
+        butAddToCart.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ContentValues values = new ContentValues();
+                values.put(myDBHelper.ID, tvIId.getText().toString());
+                values.put(myDBHelper.NAME, tvIPname.getText().toString());
+                values.put(myDBHelper.QUANTITY, "1");
+                values.put(myDBHelper.PRICE, tvIPrice.getText().toString());
+                values.put(myDBHelper.IMAGE_URL, iImage);
+
+                myDataBase.insert(myDBHelper.TABLE_NAME, null, values);
+                Log.i("xxx", myDataBase.toString());
+            }
+        });
 
         return view;
     }
