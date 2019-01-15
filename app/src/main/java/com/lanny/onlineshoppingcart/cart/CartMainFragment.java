@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.lanny.onlineshoppingcart.R;
 import com.lanny.onlineshoppingcart.product.Product;
@@ -27,11 +28,13 @@ public class CartMainFragment extends Fragment {
     MyCartViewAdapter myCartViewAdapter;
     RecyclerView cartViewRV;
     int id;
+    int cartTotalPrice = 0;
+    TextView total;
+    ArrayList<Integer> priceList;
 
     public CartMainFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,6 +47,7 @@ public class CartMainFragment extends Fragment {
 
         myItemList = new ArrayList<>();
         cartViewRV = view.findViewById(R.id.recyclerViewCart);
+        //total = view.findViewById(R.id.textViewTotal);
         GridLayoutManager gridLayoutManager3 = new GridLayoutManager(getContext(), 1);
         cartViewRV.setLayoutManager(gridLayoutManager3);
         cartViewRV.setItemAnimator(new DefaultItemAnimator());
@@ -62,21 +66,22 @@ public class CartMainFragment extends Fragment {
 
             myItemList.add(product);
 
+            cartTotalPrice += Integer.parseInt(price);
+
             myCartViewAdapter = new MyCartViewAdapter(myItemList);
             cartViewRV.setAdapter(myCartViewAdapter);
 
         }
         while (cursor.moveToNext());
 
-
+        //total.setText(Integer.toString(cartTotalPrice));
+        priceList.add(cartTotalPrice);
+        MyCartCheckoutAdapter myCartCheckoutAdapter = new MyCartCheckoutAdapter(priceList);
+        cartViewRV.setAdapter(myCartCheckoutAdapter);
 
         return view;
     }
 
-//    private void deleteData(int id) {
-//        myDataBase = myDBHelper.getWritableDatabase();
-//        myDataBase.delete(myDBHelper.TABLE_NAME,"ID" + " = " + id, null);
-//    }
 
 
 }
