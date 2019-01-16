@@ -60,44 +60,44 @@ public class CartMainFragment extends Fragment {
         cartViewRV.setItemAnimator(new DefaultItemAnimator());
 
         Cursor cursor = myDataBase.rawQuery("select * from " + myDBHelper.TABLE_NAME, null);
-        cursor.moveToFirst();
+        if (cursor.getCount() > 0){
+            cursor.moveToFirst();
 
-        do{
-            String name = cursor.getString(cursor.getColumnIndex(myDBHelper.NAME));
-            String quantity = cursor.getString(cursor.getColumnIndex(myDBHelper.QUANTITY));
-            String price = cursor.getString(cursor.getColumnIndex(myDBHelper.PRICE));
-            String image_url = cursor.getString(cursor.getColumnIndex(myDBHelper.IMAGE_URL));
-            id = cursor.getInt(cursor.getColumnIndex(myDBHelper.ID));
+            do{
+                String name = cursor.getString(cursor.getColumnIndex(myDBHelper.NAME));
+                String quantity = cursor.getString(cursor.getColumnIndex(myDBHelper.QUANTITY));
+                String price = cursor.getString(cursor.getColumnIndex(myDBHelper.PRICE));
+                String image_url = cursor.getString(cursor.getColumnIndex(myDBHelper.IMAGE_URL));
+                id = cursor.getInt(cursor.getColumnIndex(myDBHelper.ID));
 
-            Product product = new Product(Integer.toString(id), name, quantity, price, "", image_url);
+                Product product = new Product(Integer.toString(id), name, quantity, price, "", image_url);
 
-            myItemList.add(product);
+                myItemList.add(product);
 
-            cartTotalPrice += Integer.parseInt(price);
+                cartTotalPrice += Integer.parseInt(price);
 
-            myCartViewAdapter = new MyCartViewAdapter(myItemList);
-            cartViewRV.setAdapter(myCartViewAdapter);
+//                myCartViewAdapter = new MyCartViewAdapter(myItemList);
+//                cartViewRV.setAdapter(myCartViewAdapter);
 
-        }
-        while (cursor.moveToNext());
-
-//        total.setText(Integer.toString(cartTotalPrice));
-
-        butCheckout.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                OrderInfoFragment orderInfoFragment = new OrderInfoFragment();
-                AppCompatActivity activity = (AppCompatActivity) v.getContext();
-
-                FragmentManager fm = activity.getSupportFragmentManager();
-                fm.beginTransaction()
-                        .replace(R.id.bottom_frame_layout, orderInfoFragment).addToBackStack(null).commit();
             }
-        });
+            while (cursor.moveToNext());
+
+            butCheckout.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    OrderInfoFragment orderInfoFragment = new OrderInfoFragment();
+                    AppCompatActivity activity = (AppCompatActivity) v.getContext();
+
+                    FragmentManager fm = activity.getSupportFragmentManager();
+                    fm.beginTransaction()
+                            .replace(R.id.bottom_frame_layout, orderInfoFragment).addToBackStack(null).commit();
+                }
+            });
+        }
+
+        myCartViewAdapter = new MyCartViewAdapter(myItemList);
+        cartViewRV.setAdapter(myCartViewAdapter);
 
         return view;
     }
-
-
-
 }

@@ -45,11 +45,12 @@
             android:layout_height="wrap_content"
             android:textSize="20sp" />
 
-        <Button
+        <ImageButton
             android:id="@+id/buttonDelete"
-            android:layout_width="60dp"
-            android:layout_height="40dp"
+            android:layout_width="25dp"
+            android:layout_height="24dp"
             android:text="delete"
+            android:background="@drawable/delete"
             android:textSize="10sp"/>
 
     </LinearLayout>

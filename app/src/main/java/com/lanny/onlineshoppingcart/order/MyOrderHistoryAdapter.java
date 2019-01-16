@@ -1,12 +1,16 @@
 package com.lanny.onlineshoppingcart.order;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.lanny.onlineshoppingcart.R;
@@ -26,7 +30,7 @@ public class MyOrderHistoryAdapter extends RecyclerView.Adapter<MyOrderHistoryAd
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView orderidId, orderstatus, name, billingadd, deliveryadd, mobile, email, itemid
                 , itemname, itemquantity, totalprice, paidprice, placedon;
-        public ImageView categoryImage;
+        public Button shipmentTracking;
         public CardView bg;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -47,6 +51,7 @@ public class MyOrderHistoryAdapter extends RecyclerView.Adapter<MyOrderHistoryAd
             totalprice = itemView.findViewById(R.id.textViewOrderTotal);
             paidprice = itemView.findViewById(R.id.textViewOrderPaid);
             placedon = itemView.findViewById(R.id.textViewOrderPlacedon);
+            shipmentTracking = itemView.findViewById(R.id.shipmentTracking);
 
             bg = itemView.findViewById(R.id.card_view);
 
@@ -66,19 +71,35 @@ public class MyOrderHistoryAdapter extends RecyclerView.Adapter<MyOrderHistoryAd
     public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, int i) {
         final OrderHistoryItem list = mOrder.get(i);
         //myViewHolder.categoryId.setText((list.getCategoryId()));
-        myViewHolder.orderidId.setText((list.getOrderid()));
-        myViewHolder.orderstatus.setText((list.getOrderstatus()));
-        myViewHolder.name.setText((list.getName()));
-        myViewHolder.billingadd.setText((list.getBillingadd()));
-        myViewHolder.deliveryadd.setText((list.getDeliveryadd()));
-        myViewHolder.mobile.setText((list.getMobile()));
-        myViewHolder.email.setText((list.getEmail()));
-        myViewHolder.itemid.setText((list.getItemid()));
-        myViewHolder.itemname.setText((list.getItemname()));
-        myViewHolder.itemquantity.setText((list.getItemquantity()));
-        myViewHolder.totalprice.setText((list.getTotalprice()));
-        myViewHolder.paidprice.setText((list.getPaidprice()));
-        myViewHolder.placedon.setText((list.getPlacedon()));
+        myViewHolder.orderidId.setText("Order ID: "+(list.getOrderid()));
+        myViewHolder.orderstatus.setText("Order Status: " + (list.getOrderstatus()));
+        myViewHolder.name.setText("First Name: " +(list.getName()));
+        myViewHolder.billingadd.setText("Billing Address: "+ (list.getBillingadd()));
+        myViewHolder.deliveryadd.setText("Delivery Address: " + (list.getDeliveryadd()));
+        myViewHolder.mobile.setText("Mobile: "+ (list.getMobile()));
+        myViewHolder.email.setText("Email: " + (list.getEmail()));
+        myViewHolder.itemid.setText("Item ID: " +(list.getItemid()));
+        myViewHolder.itemname.setText("Item Name: " + (list.getItemname()));
+        myViewHolder.itemquantity.setText("Quantity: " + (list.getItemquantity()));
+        myViewHolder.totalprice.setText("Total Price: $" + (list.getTotalprice()));
+        myViewHolder.paidprice.setText("Paid Price: $" + (list.getPaidprice()));
+        myViewHolder.placedon.setText("Order Placedon: " + (list.getPlacedon()));
+
+        myViewHolder.shipmentTracking.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShipmentTrackingFragment shipmentTrackingFragment = new ShipmentTrackingFragment();
+                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+
+                Bundle bundle = new Bundle();
+                bundle.putString("order_id", list.getOrderid());
+                shipmentTrackingFragment.setArguments(bundle);
+                FragmentManager fm = activity.getSupportFragmentManager();
+                fm.beginTransaction()
+                        .replace(R.id.bottom_frame_layout, shipmentTrackingFragment).addToBackStack(null).commit();
+
+            }
+        });
 
     }
 

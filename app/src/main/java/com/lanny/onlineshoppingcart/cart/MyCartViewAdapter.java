@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -34,7 +34,7 @@ public class MyCartViewAdapter extends RecyclerView.Adapter<MyCartViewAdapter.My
         public TextView pid, pname, pquantity, pprice, pdesc;
         public ImageView pimage;
         public CardView pbg;
-        public Button butDelete;
+        public ImageButton butDelete;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -75,11 +75,10 @@ public class MyCartViewAdapter extends RecyclerView.Adapter<MyCartViewAdapter.My
 //        myViewHolder.pid.setText((list.getId()));
         myViewHolder.pname.setText(list.getPname());
 //        myViewHolder.pquantity.setText(list.getQuantity());
-        myViewHolder.pprice.setText(list.getPrice());
+        myViewHolder.pprice.setText("$"+list.getPrice());
 //        myViewHolder.pdesc.setText(list.getDesc());
 
-
-        Picasso.get().load(list.getImage()).into(myViewHolder.pimage);
+        Picasso.get().load(list.getImage()).fit().into(myViewHolder.pimage);
 
 
         myViewHolder.butDelete.setOnClickListener(new OnClickListener() {

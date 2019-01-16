@@ -50,15 +50,19 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_home:
                 fragment = new HomeFragment();
                 break;
-            case R.id.nav_search:
-                fragment = new OrderHistoryFragment();
-                break;
-            case R.id.nav_Account:
+            case R.id.nav_account:
                 fragment = new AccountFragment();
                 break;
             case R.id.nav_cart:
                 fragment = new CartMainFragment();
                 break;
+            case R.id.nav_history:
+                fragment = new OrderHistoryFragment();
+                break;
+            case R.id.nav_wish:
+                fragment = new SearchFragment();
+                break;
+
         }
 
 
