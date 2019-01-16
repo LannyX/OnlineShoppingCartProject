@@ -1,6 +1,7 @@
 package com.lanny.onlineshoppingcart.product;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -35,6 +36,8 @@ public class HomeFragment extends Fragment {
     RecyclerView recyclerView;
     MyProductAdapter myAdapter;
     ArrayList<ProductCategories> myCategories;
+    private SharedPreferences loginPreferences;
+    String id, api_key;
 
 
     public HomeFragment() {
@@ -50,7 +53,10 @@ public class HomeFragment extends Fragment {
 
         myCategories = new ArrayList<>();
         recyclerView = view.findViewById(R.id.recyclerView);
-
+//        loginPreferences = getSharedPreferences("profile", MODE_PRIVATE);
+//
+//        api_key = loginPreferences.getString("spApiKeys", "");
+//        id = loginPreferences.getString("spId", "");
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(gridLayoutManager);

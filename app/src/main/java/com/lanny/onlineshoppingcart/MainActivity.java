@@ -10,6 +10,7 @@ import android.view.MenuItem;
 
 import com.lanny.onlineshoppingcart.account.AccountFragment;
 import com.lanny.onlineshoppingcart.cart.CartMainFragment;
+import com.lanny.onlineshoppingcart.order.OrderHistoryFragment;
 import com.lanny.onlineshoppingcart.product.HomeFragment;
 
 public class MainActivity extends AppCompatActivity
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity
                 fragment = new HomeFragment();
                 break;
             case R.id.nav_search:
-                fragment = new SearchFragment();
+                fragment = new OrderHistoryFragment();
                 break;
             case R.id.nav_Account:
                 fragment = new AccountFragment();

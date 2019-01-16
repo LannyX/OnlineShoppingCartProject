@@ -139,7 +139,7 @@ public class SigninFragment extends Fragment {
                                 String email = individual.getString("email");
                                 String mobile = individual.getString("mobile");
                                 String apiKeys = individual.getString("appapikey ");
-                                Log.i("xxx", id + "\n"+ apiKeys);
+//                                Log.i("xxx", id + "\n"+ apiKeys);
 
                                 loginPrefsEditor.putString("spId", id);
                                 loginPrefsEditor.putString("spFName", fname);

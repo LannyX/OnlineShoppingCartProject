@@ -7,10 +7,6 @@
         android:icon="@drawable/home"
         android:title="Home" />
     <item
-        android:id="@+id/nav_search"
-        android:icon="@drawable/search"
-        android:title="Search" />
-    <item
         android:id="@+id/nav_Account"
         android:icon="@drawable/account_box"
         android:title="Account" />
@@ -18,4 +14,8 @@
         android:id="@+id/nav_cart"
         android:icon="@drawable/shopping_cart"
         android:title="Cart" />
+    <item
+        android:id="@+id/nav_search"
+        android:icon="@drawable/history"
+        android:title="Order History" />
 </menu>

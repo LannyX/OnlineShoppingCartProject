@@ -5,15 +5,20 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.lanny.onlineshoppingcart.R;
+import com.lanny.onlineshoppingcart.order.OrderInfoFragment;
 import com.lanny.onlineshoppingcart.product.Product;
 
 import java.util.ArrayList;
@@ -27,6 +32,7 @@ public class CartMainFragment extends Fragment {
     ArrayList<Product> myItemList;
     MyCartViewAdapter myCartViewAdapter;
     RecyclerView cartViewRV;
+    Button butCheckout;
     int id;
     int cartTotalPrice = 0;
     TextView total;
@@ -47,7 +53,8 @@ public class CartMainFragment extends Fragment {
 
         myItemList = new ArrayList<>();
         cartViewRV = view.findViewById(R.id.recyclerViewCart);
-        //total = view.findViewById(R.id.textViewTotal);
+        butCheckout = view.findViewById(R.id.buttonCheckout);
+//        total = view.findViewById(R.id.textViewTotal);
         GridLayoutManager gridLayoutManager3 = new GridLayoutManager(getContext(), 1);
         cartViewRV.setLayoutManager(gridLayoutManager3);
         cartViewRV.setItemAnimator(new DefaultItemAnimator());
@@ -74,10 +81,19 @@ public class CartMainFragment extends Fragment {
         }
         while (cursor.moveToNext());
 
-        //total.setText(Integer.toString(cartTotalPrice));
-        priceList.add(cartTotalPrice);
-        MyCartCheckoutAdapter myCartCheckoutAdapter = new MyCartCheckoutAdapter(priceList);
-        cartViewRV.setAdapter(myCartCheckoutAdapter);
+//        total.setText(Integer.toString(cartTotalPrice));
+
+        butCheckout.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OrderInfoFragment orderInfoFragment = new OrderInfoFragment();
+                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+
+                FragmentManager fm = activity.getSupportFragmentManager();
+                fm.beginTransaction()
+                        .replace(R.id.bottom_frame_layout, orderInfoFragment).addToBackStack(null).commit();
+            }
+        });
 
         return view;
     }

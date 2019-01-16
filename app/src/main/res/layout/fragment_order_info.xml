@@ -4,31 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="20dp"
     tools:context=".order.OrderInfoFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="@+id/card_multiline_widget"
+        app:layout_constraintTop_toBottomOf="@+id/card_multiline_widget">
 
 
         <EditText
             android:id="@+id/editTextAddress"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="101dp"
+            android:layout_marginBottom="96dp"
             android:ems="10"
             android:hint="Your Address"
             android:inputType="textPersonName"
+            app:layout_constraintBottom_toTopOf="@+id/card_multiline_widget"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/editTextBillingAddress"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="34dp"
             android:ems="10"
@@ -39,15 +43,26 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editTextAddress" />
 
+        <com.stripe.android.view.CardMultilineWidget
+            android:id="@+id/card_multiline_widget"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="35dp"
+            app:layout_constraintBottom_toTopOf="@+id/buttonPay"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextAddress" />
+
         <Button
             android:id="@+id/buttonPay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="88dp"
+            android:layout_marginBottom="153dp"
             android:text="Pay"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/card_multiline_widget" />
 
     </android.support.constraint.ConstraintLayout>
 

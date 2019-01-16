@@ -34,9 +34,9 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="52dp"
-            android:layout_marginBottom="70dp"
+            android:layout_marginBottom="14dp"
             android:padding="20dp"
-            app:layout_constraintBottom_toTopOf="@+id/recyclerViewCheckout"
+            app:layout_constraintBottom_toTopOf="@+id/buttonCheckout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -47,18 +47,6 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="58dp"
             android:text="Checkout"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerViewCart" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerViewCheckout"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
