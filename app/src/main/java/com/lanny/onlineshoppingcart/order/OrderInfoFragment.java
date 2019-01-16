@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -52,9 +53,8 @@ public class OrderInfoFragment extends Fragment {
         loginPreferences = getActivity().getSharedPreferences("profile", Context.MODE_PRIVATE);
         loginPrefsEditor = loginPreferences.edit();
 
-        loginPrefsEditor.putString("spAddress", address.getText().toString());
-        loginPrefsEditor.putString("spBillingAddress", billingad.getText().toString());
-        loginPrefsEditor.commit();
+
+        Log.i("sss", loginPreferences.getString("spAddress", "") + loginPreferences.getString("spBillingAddress", ""));
 
         final CardInputWidget mCardInputWidget = (CardInputWidget) view.findViewById(R.id.card_multiline_widget);
         stripe = new Stripe(getContext(), "pk_test_cEc9fRoy1bIoOU6QLtpybIhr");
@@ -63,6 +63,10 @@ public class OrderInfoFragment extends Fragment {
         butPay.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                loginPrefsEditor.putString("spAddress", address.getText().toString());
+                loginPrefsEditor.putString("spBillingAddress", billingad.getText().toString());
+                loginPrefsEditor.commit();
+
                 //card = mCardInputWidget.getCard();
                 card = new Card("5105105105105100", 3, 2021, "789");
                 if (card != null){

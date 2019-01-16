@@ -32,7 +32,9 @@ public class OrderDetailsFragment extends Fragment {
     String user_id, user_name, billingadd, deliveryadd, mobile, email, api_key;
     public MyDBHelper myDBHelper;
     public SQLiteDatabase myDataBase;
-
+    String name, quantity, price;
+    String itemidS;
+    int Q = 0, P = 0, itemId;
     public OrderDetailsFragment() {
         // Required empty public constructor
     }
@@ -54,6 +56,7 @@ public class OrderDetailsFragment extends Fragment {
         email = loginPreferences.getString("spEmail", "");
         api_key = loginPreferences.getString("spApiKeys", "");
 
+        Log.i("sss", billingadd + deliveryadd);
         myDBHelper = new MyDBHelper(getActivity());
         myDataBase = myDBHelper.getWritableDatabase();
 
@@ -61,35 +64,48 @@ public class OrderDetailsFragment extends Fragment {
         cursor.moveToFirst();
 
         do{
-            String name = cursor.getString(cursor.getColumnIndex(myDBHelper.NAME));
-            String quantity = cursor.getString(cursor.getColumnIndex(myDBHelper.QUANTITY));
-            String price = cursor.getString(cursor.getColumnIndex(myDBHelper.PRICE));
-            int itemId = cursor.getInt(cursor.getColumnIndex(myDBHelper.ID));
+            if (name == null){
+                name = cursor.getString(cursor.getColumnIndex(myDBHelper.NAME));
+            }else {
+                name = name + " " + cursor.getString(cursor.getColumnIndex(myDBHelper.NAME));
+            }
+//            quantity = cursor.getString(cursor.getColumnIndex(myDBHelper.QUANTITY));
+            Q = Q + Integer.parseInt(cursor.getString(cursor.getColumnIndex(myDBHelper.QUANTITY)));
+            P = P + Integer.parseInt(cursor.getString(cursor.getColumnIndex(myDBHelper.PRICE)));
+//            price = cursor.getString(cursor.getColumnIndex(myDBHelper.PRICE));
+//            itemId = cursor.getInt(cursor.getColumnIndex(myDBHelper.ID));
+            if (itemidS == null){
+                itemidS = itemidS +" "+ Integer.toString(cursor.getInt(cursor.getColumnIndex(myDBHelper.ID)));
+            }else{
+                itemidS = Integer.toString(cursor.getInt(cursor.getColumnIndex(myDBHelper.ID))) ;
+            }
 
-            String url = "http://rjtmobile.com/aamir/e-commerce/android-app/orders.php?" +
-                    "&item_id=" +itemId +"&item_names="+ name +"&item_quantity=" +quantity+
-                    "&final_price=" + price +
-                    "&&api_key=" + api_key +"&user_id=" + user_id +"&user_name="+ user_name +
-                    "&billingadd=" + billingadd + "&deliveryadd=" + deliveryadd +"&mobile=" +
-                     mobile + "&email=" + email;
 
-            StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    Toast.makeText(getActivity(), response.toString(), Toast.LENGTH_SHORT).show();
-                    Log.i("zzz", response.toString());
-                }
-            }, new ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.i("zzz", error.getMessage());
-                }
-            });
 
-            AppController.getInstance().addToRequestQueue(stringRequest, "TAG");
         }
         while (cursor.moveToNext());
 
+        String url = "http://rjtmobile.com/aamir/e-commerce/android-app/orders.php?" +
+                "&item_id=" +itemidS +"&item_names="+ name +"&item_quantity=" +Q+
+                "&final_price=" + P +
+                "&&api_key=" + api_key +"&user_id=" + user_id +"&user_name="+ user_name +
+                "&billingadd=" + billingadd + "&deliveryadd=" + deliveryadd +"&mobile=" +
+                mobile + "&email=" + email;
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(getActivity(), response.toString(), Toast.LENGTH_SHORT).show();
+                Log.i("zzz", response.toString());
+            }
+        }, new ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.i("zzz", error.getMessage());
+            }
+        });
+
+        AppController.getInstance().addToRequestQueue(stringRequest, "TAG");
 
 
         return view;
