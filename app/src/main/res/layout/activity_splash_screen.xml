@@ -6,13 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".SplashScreenActivity"
     android:layout_gravity="center"
-    android:background="#efefef"
+    android:background="#ffcc34"
     >
 
     <ImageView
-        android:layout_width="289dp"
-        android:layout_height="302dp"
-        android:background="@drawable/online_shopping"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/x3"
         android:foregroundGravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

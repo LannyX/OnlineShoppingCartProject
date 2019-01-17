@@ -29,14 +29,12 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.lanny.onlineshoppingcart.AppController;
+import com.lanny.onlineshoppingcart.MainActivity;
 import com.lanny.onlineshoppingcart.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
 
 
 /**
@@ -53,6 +51,7 @@ public class SigninFragment extends Fragment {
     public SharedPreferences loginPreferences;
     public SharedPreferences.Editor loginPrefsEditor;
     Boolean worked = false;
+    String mobile, password;
 
     public SigninFragment() {
         // Required empty public constructor
@@ -82,10 +81,10 @@ public class SigninFragment extends Fragment {
 
 
                 if(worked){
-                    moveToNewActivity();
-                    loginPrefsEditor.putString("spMobile", loginMobile.getText().toString());
-                    loginPrefsEditor.putString("spPassword", loginPassword.getText().toString());
-                    loginPrefsEditor.commit();
+//                    moveToNewActivity();
+//                    loginPrefsEditor.putString("spMobile", loginMobile.getText().toString());
+//                    loginPrefsEditor.putString("spPassword", loginPassword.getText().toString());
+//                    loginPrefsEditor.commit();
 
                     loginPassword.setText(loginPreferences.getString("spPassword", ""));
                     loginMobile.setText(loginPreferences.getString("spMobile", ""));
@@ -115,7 +114,11 @@ public class SigninFragment extends Fragment {
 
 
     private void loginRequest() {
-        String url = "http://rjtmobile.com/aamir/e-commerce/android-app/shop_login.php?";
+        mobile = loginMobile.getText().toString();
+        password = loginPassword.getText().toString();
+//        String url = "http://rjtmobile.com/aamir/e-commerce/android-app/shop_login.php?";
+        String url = "http://rjtmobile.com/aamir/e-commerce/android-app/shop_login.php?" +
+                "mobile="+ mobile +"&password="+ password;
         pd = new ProgressDialog(getContext());
         pd.setMessage("Signing In . . .");
         pd.show();
@@ -139,7 +142,7 @@ public class SigninFragment extends Fragment {
                                 String email = individual.getString("email");
                                 String mobile = individual.getString("mobile");
                                 String apiKeys = individual.getString("appapikey ");
-//                                Log.i("xxx", id + "\n"+ apiKeys);
+                                Log.i("xxx", id + "\n"+ apiKeys);
 
                                 loginPrefsEditor.putString("spId", id);
                                 loginPrefsEditor.putString("spFName", fname);
@@ -150,10 +153,15 @@ public class SigninFragment extends Fragment {
                                 loginPrefsEditor.commit();
 
                             }
+                            moveToNewActivity();
+                            loginPrefsEditor.putString("spMobile", loginMobile.getText().toString());
+                            loginPrefsEditor.putString("spPassword", loginPassword.getText().toString());
+                            loginPrefsEditor.commit();
                         } catch (JSONException e) {
                             e.printStackTrace();
                             Log.i(TAG, "no response");
                         }
+
                     }
                 }, new ErrorListener() {
             @Override
@@ -175,23 +183,24 @@ public class SigninFragment extends Fragment {
 
                 Log.i("xxx", message.toString());
             }
-        }){
-            @Override
-            public Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("mobile", loginMobile.getText().toString());
-                params.put("password", loginPassword.getText().toString());
-                return params;
+        });
+//        {
+//            @Override
+//            public Map<String, String> getParams() {
+//                Map<String, String> params = new HashMap<String, String>();
+//                params.put("mobile", loginMobile.getText().toString());
+//                params.put("password", loginPassword.getText().toString());
+//                return params;
+//
+//            }
 
-            }
-
-        };
+//        };
         AppController.getInstance().addToRequestQueue(stringRequest, TAG);
     }
 
 
     private void moveToNewActivity() {
-        Intent i = new Intent(getActivity(), ProfileActivity.class);
+        Intent i = new Intent(getActivity(), MainActivity.class);
         getActivity().startActivity(i);
         ((Activity) getActivity()).overridePendingTransition(0,0);
     }

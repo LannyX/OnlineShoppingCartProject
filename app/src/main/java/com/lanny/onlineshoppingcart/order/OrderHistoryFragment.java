@@ -57,6 +57,7 @@ public class OrderHistoryFragment extends Fragment {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 1);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+
         loginPreferences = this.getActivity().getSharedPreferences("profile", MODE_PRIVATE);
         user_id = loginPreferences.getString("spId", "");
         user_mobile = loginPreferences.getString("spMobile", "");

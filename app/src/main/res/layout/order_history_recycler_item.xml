@@ -67,11 +67,11 @@
                 android:layout_height="wrap_content"
                 android:textSize="18sp" />
 
-            <TextView
-                android:id="@+id/textViewOrderItemid"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18sp" />
+            <!--<TextView-->
+                <!--android:id="@+id/textViewOrderItemid"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textSize="18sp" />-->
 
             <TextView
                 android:id="@+id/textViewOrderItemName"
@@ -79,11 +79,11 @@
                 android:layout_height="wrap_content"
                 android:textSize="18sp" />
 
-            <TextView
-                android:id="@+id/textViewOrderItemQuan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18sp" />
+            <!--<TextView-->
+                <!--android:id="@+id/textViewOrderItemQuan"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textSize="18sp" />-->
 
             <TextView
                 android:id="@+id/textViewOrderTotal"

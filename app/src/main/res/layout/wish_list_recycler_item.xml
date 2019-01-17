@@ -26,7 +26,7 @@
         android:padding="5dp">
 
         <ImageView
-            android:id="@+id/textViewCartImage"
+            android:id="@+id/textViewWishImage"
             android:layout_width="100dp"
             android:layout_height="80dp"
             android:layout_gravity="center_vertical"
@@ -34,7 +34,7 @@
             android:gravity="center_vertical" />
 
         <RelativeLayout
-            android:id="@+id/top_icon_detail"
+
             android:layout_width="wrap_content"
             android:layout_height="100dp"
             android:layout_gravity="center_vertical"
@@ -42,7 +42,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textViewCartName"
+                android:id="@+id/textViewWishName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="0dp"
@@ -58,7 +58,7 @@
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/textViewCartQuantity"
+                android:id="@+id/textViewWishQuantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textViewCartName"
@@ -72,7 +72,7 @@
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/textViewCartQuantity1"
+                android:id="@+id/textViewWishQuantity1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/textViewCartQuantity"
@@ -89,7 +89,7 @@
                 android:visibility="gone" />
 
             <TextView
-                android:id="@+id/textViewCartPrice"
+                android:id="@+id/textViewWishPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
@@ -106,7 +106,7 @@
                 android:textStyle="bold" />
 
             <ImageButton
-                android:id="@+id/buttonDelete"
+                android:id="@+id/buttonWishDelete"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:text="delete"

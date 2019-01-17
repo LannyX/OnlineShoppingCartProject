@@ -28,7 +28,7 @@ import com.lanny.onlineshoppingcart.R;
 
 import java.util.HashMap;
 import java.util.Map;
-
+import java.util.regex.Pattern;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,6 +41,7 @@ public class SignupFragment extends Fragment {
     Button signupButton;
     private ProgressDialog pd;
     StringRequest stringRequest;
+    boolean emailB, fnameB, LnameB, mobileB;
 
     public SignupFragment() {
         // Required empty public constructor
@@ -61,12 +62,28 @@ public class SignupFragment extends Fragment {
         loginMobile = view.findViewById(R.id.editTextSMobile);
         signupButton = view.findViewById(R.id.buttonUpdateProfile);
 
-        signupButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SignUpRequest();
-            }
-        });
+
+        emailB = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[\\w.]+@[\\w.]*\\.[a-zA-Z0-9]+$").matcher(loginEmail.getText().toString()).matches();
+
+        fnameB = Pattern.compile("\"(?i)(^[a-z])((?![ .,'-]$)[a-z .,'-]){0,24}$\"").matcher(fname.getText().toString()).matches();
+        LnameB = Pattern.compile("\"(?i)(^[a-z])((?![ .,'-]$)[a-z .,'-]){0,24}$\"").matcher(lname.getText().toString()).matches();
+        mobileB = Pattern.compile("(.)*(\\d)(.)*").matcher(loginMobile.getText().toString()).matches();
+
+
+            signupButton.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//                    Log.i("aaa", emailB + " " + fnameB+ " "+ LnameB + "" +mobileB);
+//                    &&fnameB&&LnameB&&mobileB
+//                    if(emailB){
+                    SignUpRequest();
+//                    }else {
+//                        Toast.makeText(getActivity(), "Email or Name or Phone invalid", Toast.LENGTH_SHORT).show();
+//                    }
+                }
+            });
+
+
 
         return view;
     }

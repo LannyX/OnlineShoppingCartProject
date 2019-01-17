@@ -1,4 +1,4 @@
-package com.lanny.onlineshoppingcart.cart;
+package com.lanny.onlineshoppingcart.wishlist;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
@@ -19,14 +19,14 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyCartViewAdapter extends RecyclerView.Adapter<MyCartViewAdapter.MyViewHolder>{
+public class MyWishListViewAdapter extends RecyclerView.Adapter<MyWishListViewAdapter.MyViewHolder>{
     public View view;
-    public MyDBHelper myDBHelper;
+    public MyWishListDBHelper myWishListDBHelper;
     public SQLiteDatabase myDataBase;
     List<Product> mProd;
 
 
-    public MyCartViewAdapter(ArrayList<Product> myProjects){
+    public MyWishListViewAdapter(ArrayList<Product> myProjects){
         this.mProd = myProjects;
     }
 
@@ -41,15 +41,15 @@ public class MyCartViewAdapter extends RecyclerView.Adapter<MyCartViewAdapter.My
             view = itemView;
 
             //pid = itemView.findViewById(R.id.textViewCartId);
-            pname = itemView.findViewById(R.id.textViewCartName);
-            pquantity = itemView.findViewById(R.id.textViewCartQuantity);
-            pprice = itemView.findViewById(R.id.textViewCartPrice);
+            pname = itemView.findViewById(R.id.textViewWishName);
+            pquantity = itemView.findViewById(R.id.textViewWishQuantity);
+            pprice = itemView.findViewById(R.id.textViewWishPrice);
 //            pdesc = itemView.findViewById(R.id.textViewCartDesc);
-            pimage = itemView.findViewById(R.id.textViewCartImage);
-            butDelete = itemView.findViewById(R.id.buttonDelete);
+            pimage = itemView.findViewById(R.id.textViewWishImage);
+            butDelete = itemView.findViewById(R.id.buttonWishDelete);
             pbg = itemView.findViewById(R.id.card_view2);
 
-            myDBHelper = new MyDBHelper(itemView.getContext());
+            myWishListDBHelper = new MyWishListDBHelper(itemView.getContext());
         }
 
     }
@@ -58,7 +58,7 @@ public class MyCartViewAdapter extends RecyclerView.Adapter<MyCartViewAdapter.My
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cart_recycler_item, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.wish_list_recycler_item, viewGroup, false);
 
 
         return new MyViewHolder(view);
@@ -74,7 +74,7 @@ public class MyCartViewAdapter extends RecyclerView.Adapter<MyCartViewAdapter.My
 
 //        myViewHolder.pid.setText((list.getId()));
         myViewHolder.pname.setText(list.getPname());
-        myViewHolder.pquantity.setText("Quantity: " + list.getQuantity());
+//        myViewHolder.pquantity.setText("Quantity: " + list.getQuantity());
         myViewHolder.pprice.setText("Price: $"+list.getPrice());
 //        myViewHolder.pdesc.setText(list.getDesc());
 
@@ -85,8 +85,8 @@ public class MyCartViewAdapter extends RecyclerView.Adapter<MyCartViewAdapter.My
             @Override
             public void onClick(View v) {
 
-                myDataBase = myDBHelper.getWritableDatabase();
-                myDataBase.delete(myDBHelper.TABLE_NAME,"ID" + " = " + list.getId(), null);
+                myDataBase = myWishListDBHelper.getWritableDatabase();
+                myDataBase.delete(myWishListDBHelper.TABLE_NAME,"ID" + " = " + list.getId(), null);
 
                 mProd.remove(position);
                 notifyItemRemoved(position);

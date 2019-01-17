@@ -12,32 +12,13 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:fontFamily="@font/abril_fatface"
-            android:gravity="top"
-            android:text="Cart: "
-            android:textAllCaps="false"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/recyclerViewCart"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.053"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerViewCart"
-            android:layout_width="0dp"
+            android:layout_width="398dp"
             android:layout_height="0dp"
-            android:layout_marginTop="52dp"
-            android:layout_marginBottom="14dp"
-            android:padding="20dp"
-            app:layout_constraintBottom_toTopOf="@+id/buttonCheckout"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="22dp"
+            android:padding="5dp"
+            app:layout_constraintBottom_toTopOf="@+id/applyCoupon"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,12 +26,53 @@
             android:id="@+id/buttonCheckout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="58dp"
+            android:layout_marginBottom="16dp"
             android:text="Checkout"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.871"
+            app:layout_constraintStart_toEndOf="@+id/textViewTotal"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerViewCart"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <EditText
+            android:id="@+id/coupon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="3dp"
+            android:layout_marginBottom="12dp"
+            android:ems="10"
+            android:hint="Enter coupon"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toTopOf="@+id/textViewTotal"
+            app:layout_constraintEnd_toStartOf="@+id/applyCoupon"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/applyCoupon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="71dp"
+            android:text="Apply"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/coupon"
             app:layout_constraintTop_toBottomOf="@+id/recyclerViewCart" />
+
+        <TextView
+            android:id="@+id/textViewTotal"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="22dp"
+            android:layout_marginBottom="16dp"
+            android:textSize="20sp"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/buttonCheckout"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
 

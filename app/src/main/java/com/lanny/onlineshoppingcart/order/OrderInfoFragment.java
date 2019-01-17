@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -53,8 +52,7 @@ public class OrderInfoFragment extends Fragment {
         loginPreferences = getActivity().getSharedPreferences("profile", Context.MODE_PRIVATE);
         loginPrefsEditor = loginPreferences.edit();
 
-
-        Log.i("sss", loginPreferences.getString("spAddress", "") + loginPreferences.getString("spBillingAddress", ""));
+        String totalwDiscount = loginPreferences.getString("totalwDiscount", "");
 
         final CardInputWidget mCardInputWidget = (CardInputWidget) view.findViewById(R.id.card_multiline_widget);
         stripe = new Stripe(getContext(), "pk_test_cEc9fRoy1bIoOU6QLtpybIhr");

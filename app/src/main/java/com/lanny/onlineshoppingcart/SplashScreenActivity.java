@@ -17,11 +17,11 @@ public class SplashScreenActivity extends AppCompatActivity {
                 super.run();
 
                 try {
-                    sleep(5000);
+                    sleep(3000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {
-                    Intent i = new Intent(SplashScreenActivity.this, MainActivity.class);
+                    Intent i = new Intent(SplashScreenActivity.this, SignUpActivity.class);
                     startActivity(i);
                 }
             }

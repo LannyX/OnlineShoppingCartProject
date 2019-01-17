@@ -4,10 +4,12 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -28,28 +30,31 @@ import com.lanny.onlineshoppingcart.R;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ProfileActivity extends AppCompatActivity {
+import static android.content.Context.MODE_PRIVATE;
 
-    public static final String TAG = ProfileActivity.class.getSimpleName();
+public class ProfileFragment extends Fragment {
+
+    public static final String TAG = ProfileFragment.class.getSimpleName();
     private EditText fname, lname, laddress, loginEmail, loginMobile;
-    private Button updateButton;
+    private Button updateButton, resetPassword;
     private ProgressDialog pd;
     private StringRequest stringRequest;
     private SharedPreferences loginPreferences;
     private SharedPreferences.Editor loginPrefsEditor;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view =  inflater.inflate(R.layout.fragment_profile, container, false);
 
-        fname = findViewById(R.id.editTextUpdateFname);
-        lname = findViewById(R.id.editTextUpdateLName);
-        laddress = findViewById(R.id.editTextUpdateAddress);
-        loginEmail = findViewById(R.id.editTextUpdateEmail);
-        loginMobile = findViewById(R.id.editTextUpdateMobile);
-        updateButton = findViewById(R.id.buttonUpdateProfile);
-        loginPreferences = getSharedPreferences("profile", MODE_PRIVATE);
+        fname = view.findViewById(R.id.editTextUpdateFname);
+        lname = view.findViewById(R.id.editTextUpdateLName);
+        laddress = view.findViewById(R.id.editTextUpdateAddress);
+        loginEmail = view.findViewById(R.id.editTextUpdateEmail);
+        loginMobile = view.findViewById(R.id.editTextUpdateMobile);
+        updateButton = view.findViewById(R.id.buttonUpdateProfile);
+        resetPassword = view.findViewById(R.id.buttonResetPassword);
+        loginPreferences = getActivity().getSharedPreferences("profile", MODE_PRIVATE);
 
         fname.setText(loginPreferences.getString("spFName", ""));
         lname.setText(loginPreferences.getString("spLName", ""));
@@ -63,11 +68,20 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+        resetPassword.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resetPassword();
+            }
+        });
+
+        return view;
+
     }
 
     private void UpdateRequest() {
         String url = "http://rjtmobile.com/aamir/e-commerce/android-app/edit_profile.php?";
-        pd = new ProgressDialog(this);
+        pd = new ProgressDialog(getContext());
         pd.setMessage("Updating . . .");
         pd.show();
 
@@ -118,10 +132,10 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
 
-    public void resetPasswordHandler(View view) {
+    public void resetPassword() {
 
-        Intent i = new Intent(ProfileActivity.this, ResetPasswordActivity.class);
-        ProfileActivity.this.startActivity(i);
+        Intent i = new Intent(getActivity(), ResetPasswordActivity.class);
+        ProfileFragment.this.startActivity(i);
 
     }
 }

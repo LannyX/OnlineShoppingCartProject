@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
-    public static final String TAG = ProfileActivity.class.getSimpleName();
+    public static final String TAG = ProfileFragment.class.getSimpleName();
     private EditText email;
     private Button but;
     private ProgressDialog pd;

@@ -8,10 +8,11 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
-import com.lanny.onlineshoppingcart.account.AccountFragment;
+import com.lanny.onlineshoppingcart.account.ProfileFragment;
 import com.lanny.onlineshoppingcart.cart.CartMainFragment;
 import com.lanny.onlineshoppingcart.order.OrderHistoryFragment;
 import com.lanny.onlineshoppingcart.product.HomeFragment;
+import com.lanny.onlineshoppingcart.wishlist.WishListFragment;
 
 public class MainActivity extends AppCompatActivity
         implements BottomNavigationView.OnNavigationItemSelectedListener{
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity
                 fragment = new HomeFragment();
                 break;
             case R.id.nav_account:
-                fragment = new AccountFragment();
+                fragment = new ProfileFragment();
                 break;
             case R.id.nav_cart:
                 fragment = new CartMainFragment();
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity
                 fragment = new OrderHistoryFragment();
                 break;
             case R.id.nav_wish:
-                fragment = new SearchFragment();
+                fragment = new WishListFragment();
                 break;
 
         }

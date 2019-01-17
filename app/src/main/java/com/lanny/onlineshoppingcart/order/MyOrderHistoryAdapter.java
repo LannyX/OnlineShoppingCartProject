@@ -45,9 +45,9 @@ public class MyOrderHistoryAdapter extends RecyclerView.Adapter<MyOrderHistoryAd
             deliveryadd = itemView.findViewById(R.id.textViewOrderDelivery);
             mobile = itemView.findViewById(R.id.textViewOrderMobile);
             email = itemView.findViewById(R.id.textViewOrderEmail);
-            itemid = itemView.findViewById(R.id.textViewOrderItemid);
+//            itemid = itemView.findViewById(R.id.textViewOrderItemid);
             itemname = itemView.findViewById(R.id.textViewOrderItemName);
-            itemquantity = itemView.findViewById(R.id.textViewOrderItemQuan);
+//            itemquantity = itemView.findViewById(R.id.textViewOrderItemQuan);
             totalprice = itemView.findViewById(R.id.textViewOrderTotal);
             paidprice = itemView.findViewById(R.id.textViewOrderPaid);
             placedon = itemView.findViewById(R.id.textViewOrderPlacedon);
@@ -78,9 +78,9 @@ public class MyOrderHistoryAdapter extends RecyclerView.Adapter<MyOrderHistoryAd
         myViewHolder.deliveryadd.setText("Delivery Address: " + (list.getDeliveryadd()));
         myViewHolder.mobile.setText("Mobile: "+ (list.getMobile()));
         myViewHolder.email.setText("Email: " + (list.getEmail()));
-        myViewHolder.itemid.setText("Item ID: " +(list.getItemid()));
+//        myViewHolder.itemid.setText("Item ID: " +(list.getItemid()));
         myViewHolder.itemname.setText("Item Name: " + (list.getItemname()));
-        myViewHolder.itemquantity.setText("Quantity: " + (list.getItemquantity()));
+//        myViewHolder.itemquantity.setText("Quantity: " + (list.getItemquantity()));
         myViewHolder.totalprice.setText("Total Price: $" + (list.getTotalprice()));
         myViewHolder.paidprice.setText("Paid Price: $" + (list.getPaidprice()));
         myViewHolder.placedon.setText("Order Placedon: " + (list.getPlacedon()));

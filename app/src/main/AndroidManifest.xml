@@ -21,7 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".account.ProfileActivity" />
+        <activity android:name=".account.ProfileFragment" />
         <activity android:name=".account.ResetPasswordActivity" />
         <activity android:name=".account.ForgotPasswordActivity" />
         <activity android:name=".product.SubCategoryActivity"></activity>

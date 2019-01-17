@@ -5,19 +5,20 @@ import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.lanny.onlineshoppingcart.R;
 import com.lanny.onlineshoppingcart.cart.MyDBHelper;
+import com.lanny.onlineshoppingcart.wishlist.MyWishListDBHelper;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -29,8 +30,10 @@ public class ItemFragment extends Fragment {
     ImageView tvIImage;
     Spinner dropdown;
     Button butAddToCart;
+    ImageButton butAddToLike;
     public MyDBHelper myDBHelper;
-    public SQLiteDatabase myDataBase;
+    public MyWishListDBHelper myWishListDBHelper;
+    public SQLiteDatabase myDataBase, myWishListDB;
 
 
     public ItemFragment() {
@@ -47,6 +50,9 @@ public class ItemFragment extends Fragment {
 
         myDBHelper = new MyDBHelper(getContext());
         myDataBase = myDBHelper.getWritableDatabase();
+
+        myWishListDBHelper = new MyWishListDBHelper(getContext());
+        myWishListDB = myWishListDBHelper.getWritableDatabase();
 
         Bundle b = this.getArguments();
         if (b != null){
@@ -66,6 +72,7 @@ public class ItemFragment extends Fragment {
         tvIImage = view.findViewById(R.id.textViewIImage);
         dropdown = view.findViewById(R.id.spinner1);
         butAddToCart = view.findViewById(R.id.buttonAddtoCart);
+        butAddToLike = view.findViewById(R.id.cart_like);
 
         setItemFragmentView();
 
@@ -81,7 +88,21 @@ public class ItemFragment extends Fragment {
                 values.put(myDBHelper.IMAGE_URL, iImage);
 
                 myDataBase.insert(myDBHelper.TABLE_NAME, null, values);
-                Log.i("xxx", myDataBase.toString());
+                //Log.i("xxx", myDataBase.toString());
+            }
+        });
+
+        butAddToLike.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ContentValues values = new ContentValues();
+                values.put(myWishListDBHelper.ID, tvIId.getText().toString());
+                values.put(myWishListDBHelper.NAME, tvIPname.getText().toString());
+                values.put(myWishListDBHelper.QUANTITY, "1");
+                values.put(myWishListDBHelper.PRICE, tvIPrice.getText().toString());
+                values.put(myWishListDBHelper.IMAGE_URL, iImage);
+
+                myWishListDB.insert(myWishListDBHelper.TABLE_NAME, null, values);
             }
         });
 

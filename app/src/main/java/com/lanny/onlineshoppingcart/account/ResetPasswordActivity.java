@@ -27,7 +27,7 @@ import java.util.Map;
 
 public class ResetPasswordActivity extends AppCompatActivity {
 
-    public static final String TAG = ProfileActivity.class.getSimpleName();
+    public static final String TAG = ProfileFragment.class.getSimpleName();
     private EditText mobile, oldPassword, newPassword;
     private Button resetButton;
     private ProgressDialog pd;

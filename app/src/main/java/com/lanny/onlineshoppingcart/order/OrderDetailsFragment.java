@@ -29,7 +29,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class OrderDetailsFragment extends Fragment {
     final static String TAG = OrderDetailsFragment.class.getSimpleName();
     private SharedPreferences loginPreferences;
-    String user_id, user_name, billingadd, deliveryadd, mobile, email, api_key;
+    String user_id, user_name, billingadd, deliveryadd, mobile, email, api_key, totalwDiscount;
     public MyDBHelper myDBHelper;
     public SQLiteDatabase myDataBase;
     String name, quantity, price;
@@ -55,8 +55,9 @@ public class OrderDetailsFragment extends Fragment {
         mobile = loginPreferences.getString("spMobile", "");
         email = loginPreferences.getString("spEmail", "");
         api_key = loginPreferences.getString("spApiKeys", "");
+        totalwDiscount = loginPreferences.getString("totalwDiscount", "");
 
-        Log.i("sss", billingadd + deliveryadd);
+//        Log.i("sss", billingadd + deliveryadd);
         myDBHelper = new MyDBHelper(getActivity());
         myDataBase = myDBHelper.getWritableDatabase();
 
@@ -86,7 +87,7 @@ public class OrderDetailsFragment extends Fragment {
         while (cursor.moveToNext());
 
         String url = "http://rjtmobile.com/aamir/e-commerce/android-app/orders.php?" +
-                "&item_id=" +itemidS +"&item_names="+ name +"&item_quantity=" +Q+
+                "&item_id=" +itemidS +"&item_names="+ name +"&item_quantity=" +totalwDiscount+
                 "&final_price=" + P +
                 "&&api_key=" + api_key +"&user_id=" + user_id +"&user_name="+ user_name +
                 "&billingadd=" + billingadd + "&deliveryadd=" + deliveryadd +"&mobile=" +
